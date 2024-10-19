@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend:
+    build: ./adventure_game_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./adventure_game_backend:/app
+    depends_on:
+      - db
+  frontend:
+    build: ./adventure-game-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: adventure
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
